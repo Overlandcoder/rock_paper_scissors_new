@@ -6,7 +6,7 @@ let getComputerChoice = () => {
 let playerScore = 0;
 let computerScore = 0;
 let updateScore = () => score.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
-let roundOver = (playerScore >= 5 || computerScore >= 5);
+let roundOver = () => (playerScore >= 5 || computerScore >= 5);
 
 let playRound = (playerSelection) => {
   computerSelection = getComputerChoice();
@@ -23,10 +23,7 @@ let playRound = (playerSelection) => {
     roundWinner.textContent = `Computer wins - ${computerSelection} beats ${playerSelection}`;
   }
   updateScore();
-  if (roundOver) {
-    disablePlayButtons();
-    declareWinner();
-  }
+  if (roundOver()) declareWinner();
 }
 
 function declareWinner() {
@@ -37,16 +34,10 @@ function declareWinner() {
   }
 }
 
-function disablePlayButtons() {
-  playButtons.forEach(btn => btn.removeEventListener());
-}
-
-const playButton = document.querySelector('.play');
 const playButtons = document.querySelectorAll('.player-selection');
 const roundWinner = document.querySelector('.round-winner');
 const gameWinner = document.querySelector('.game-winner');
 const score = document.querySelector('.score');
-// playButton.addEventListener('click', game());
 
 playButtons.forEach(btn => btn.addEventListener('click', () => {
   let playerSelection = btn.textContent.toLowerCase();
